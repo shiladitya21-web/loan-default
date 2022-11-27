@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 import numpy as np
 import pickle
 import streamlit as st
@@ -72,4 +66,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
