@@ -1,1 +1,1 @@
-web: sh setup.sh && streamlit run BOSE.py
+web: sh setup.sh && streamlit run Untitled.py
