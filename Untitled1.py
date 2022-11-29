@@ -9,9 +9,9 @@ import streamlit as st
 model=pickle.load(open('new_model.pkl','rb'))
 def prediction(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job):
    
-    prediction = model.predict([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]])
-    proba = model.predict_proba([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]])
-    if predicted==1:
+    prediction = model.predict(np.array([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]]))
+    proba = model.predict_proba(np.array([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]]))
+    if prediction==1:
         print("USER IS A DEFAULTER\n\nTHE PROBABILITY OF DEFAULT is")
         return round(proba[0][1],2)
     else:
