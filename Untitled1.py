@@ -62,7 +62,7 @@ def main():
             st.markdown(more_html, unsafe_allow_html=True)
         else:
             st.markdown(less_html, unsafe_allow_html=True)
-    st.metric(label='PROBABILITY OF DEFAULT is', value = str(output))
+        st.metric(label='PROBABILITY OF DEFAULT is', value = str(output))
 
 if __name__=='__main__':
     main()
