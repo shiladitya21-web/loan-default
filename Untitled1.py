@@ -1,18 +1,20 @@
 import numpy as np
+import pandas as pd
 import pickle
 import streamlit as st
 
 model=pickle.load(open('new_model.pkl','rb'))
-def model_new(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job):
-    new_data = np.array([Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job])
-    predicted = model.predict(new_data)
-    proba = model.predict_proba(new_data)
+def prediction(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job):
+   
+    prediction = model.predict([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]])
+    proba = model.predict_proba([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]])
     if predicted==1:
         print("USER IS A DEFAULTER\n\nTHE PROBABILITY OF DEFAULT is")
         return round(proba[0][1],2)
     else:
         print("USER IS NOT A DEFAULTER\n\nTHE PROBABILITY OF DEFAULT is")
         return round(proba[0][1],2)
+    
 def main():
     st.title("LOAN DEFAULT PREDICTION")
     html_temp = """
@@ -57,11 +59,12 @@ def main():
     '''
     
     if st.button("SUBMIT"):
-        output = model_new(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job)
+        output = prediction(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job)
         if(output>=0.5):
             st.markdown(more_html, unsafe_allow_html=True)
         else:
             st.markdown(less_html, unsafe_allow_html=True)
-        st.metric(label='PROBABILITY OF DEFAULT is', value = str(output))
+    st.metric(label='PROBABILITY OF DEFAULT is', value = str(output))
 
-main()
+if __name__=='__main__':
+    main()
