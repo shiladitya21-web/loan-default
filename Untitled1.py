@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
-from sklearn import linear_model
-from sklearn.linear_model import LogisticRegression
+#from sklearn import linear_model
+#from sklearn.linear_model import LogisticRegression
 import pickle
 import streamlit as st
 
