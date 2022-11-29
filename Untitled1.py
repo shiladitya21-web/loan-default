@@ -1,14 +1,9 @@
-import numpy as np
-#import pandas as pd
-#from sklearn import linear_model
-#from sklearn.linear_model import LogisticRegression
 import pickle
 import streamlit as st
-
+import numpy as np
 
 model=pickle.load(open('new_model.pkl','rb'))
 def prediction(Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job):
-   
     prediction = model.predict(np.array([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]]))
     proba = model.predict_proba(np.array([[Number_of_Open_Accounts,Years_of_Credit_History,Maximum_Open_Credit,Current_Loan_Amount,Current_Credit_Balance,Monthly_Debt,Annual_Income,Months_since_last_delinquent,Home_Ownership,Term,Years_in_current_job]]))
     if prediction==1:
